@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+opencv-python
+ultralytics
+lapx
+supervision
+sqlite3
+pydantic
+python-multipart
+pillow
+numpy
