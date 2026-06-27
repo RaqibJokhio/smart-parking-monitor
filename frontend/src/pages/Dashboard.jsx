@@ -3,6 +3,7 @@ import OccupancyChart from "../components/OccupancyChart"
 import SlotGrid from "../components/SlotGrid"
 import IllegalTable from "../components/IllegalTable"
 import { useParking } from "../hooks/useParking"
+import LiveFeed from "../components/LiveFeed"
 
 export default function Dashboard() {
   const { stats, sessions, slots, loading } = useParking(3000)
@@ -49,6 +50,7 @@ export default function Dashboard() {
             </div>
 
             <IllegalTable sessions={sessions} />
+            <LiveFeed />
           </div>
         )}
       </div>

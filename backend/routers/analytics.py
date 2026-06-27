@@ -31,3 +31,27 @@ def get_dashboard_stats():
         "illegal_count": illegal_count,
         "avg_duration_seconds": round(avg_duration, 1)
     }
+
+@router.get("/history")
+def get_occupancy_history():
+    conn = get_connection()
+    rows = conn.execute("""
+        SELECT
+            strftime('%H:%M', entry_time) as time_slot,
+            COUNT(*) as vehicle_count
+        FROM parking_sessions
+        GROUP BY time_slot
+        ORDER BY time_slot DESC
+        LIMIT 20
+    """).fetchall()
+    conn.close()
+    return [dict(r) for r in rows]
+
+@router.get("/illegal-events")
+def get_illegal_events():
+    conn = get_connection()
+    rows = conn.execute(
+        "SELECT * FROM illegal_parking_events ORDER BY timestamp DESC LIMIT 20"
+    ).fetchall()
+    conn.close()
+    return [dict(r) for r in rows]
